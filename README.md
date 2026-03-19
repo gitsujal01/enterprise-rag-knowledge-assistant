@@ -4,8 +4,8 @@
 This project is a Retrieval-Augmented Generation (RAG) based assistant that helps users query documents using AI.
 
 ## 🛠️ Tech Stack
-- Python
-- LangChain
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![LangChain](https://img.shields.io/badge/LangChain-Framework-green)
 - Vector Database (FAISS / Chroma)
 - Embeddings (OpenAI / Groq)
 - FastAPI / Flask
