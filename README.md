@@ -5,10 +5,11 @@ This project is a Retrieval-Augmented Generation (RAG) based assistant that help
 
 ## 🛠️ Tech Stack
 - Python
-- FastAPI / Flask (your app)
-- Vector DB
-- Embeddings
-
+- LangChain
+- Vector Database (FAISS / Chroma)
+- Embeddings (OpenAI / Groq)
+- FastAPI / Flask
+  
 ## 📂 Features
 - Document upload
 - Chunking & embeddings
