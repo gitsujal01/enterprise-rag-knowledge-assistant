@@ -6,3 +6,4 @@ faiss-cpu
 pypdf
 tiktoken
 sentence-transformers
+plotly>=5.0.0
