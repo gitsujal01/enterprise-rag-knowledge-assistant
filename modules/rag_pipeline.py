@@ -1,6 +1,5 @@
 from langchain.chains import RetrievalQA
 from langchain_groq import ChatGroq
-
 from modules.loader import load_documents
 from modules.chunking import split_documents
 from modules.embeddings import create_embeddings
