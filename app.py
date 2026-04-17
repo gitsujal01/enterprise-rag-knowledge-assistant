@@ -13,7 +13,6 @@ from modules.vector_store import create_vector_store
 from config import GROQ_API_KEY
 
 
-# ------------------ CONFIG ------------------
 st.set_page_config(page_title="RAG Assistant", page_icon="🤖", layout="wide")
 
 UPLOAD_DIR = "uploads"
@@ -22,7 +21,6 @@ USER_FILE = "users.json"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 
-# ------------------ USER STORAGE ------------------
 def load_users():
     if not os.path.exists(USER_FILE):
         return {}
@@ -34,7 +32,6 @@ def save_users(users):
         json.dump(users, f)
 
 
-# ------------------ SESSION ------------------
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
     st.session_state.username = ""
@@ -44,7 +41,6 @@ if "logged_in" not in st.session_state:
     st.session_state.response_times = []
 
 
-# ------------------ LOGIN / SIGNUP ------------------
 if not st.session_state.logged_in:
 
     col1, col2, col3 = st.columns([1,1.2,1])
@@ -56,7 +52,6 @@ if not st.session_state.logged_in:
 
         users = load_users()
 
-        # -------- LOGIN --------
         with tab1:
             with st.form("login_form"):
                 username = st.text_input("Username").strip()
@@ -73,7 +68,6 @@ if not st.session_state.logged_in:
                     else:
                         st.error("Invalid username or password")
 
-        # -------- SIGNUP --------
         with tab2:
             with st.form("signup_form"):
                 new_user = st.text_input("New Username").strip()
@@ -97,7 +91,6 @@ if not st.session_state.logged_in:
     st.stop()
 
 
-# ------------------ HEADER ------------------
 st.title("🏢 Enterprise RAG Assistant")
 st.write(f"Logged in as **{st.session_state.username}** ({st.session_state.role})")
 
@@ -106,7 +99,6 @@ if st.button("Logout"):
     st.rerun()
 
 
-# ------------------ STATS ------------------
 files = os.listdir(UPLOAD_DIR)
 
 total_docs = len(files)
@@ -120,7 +112,6 @@ c3.metric("Avg Time", f"{avg_time}s")
 c4.metric("Model", "Groq")
 
 
-# ------------------ SIDEBAR ------------------
 st.sidebar.title("📂 Documents")
 
 if st.session_state.role == "admin":
@@ -137,7 +128,6 @@ for f in files:
     st.sidebar.write("📄", f)
 
 
-# ------------------ RAG CHAIN ------------------
 @st.cache_resource
 def get_chain():
     docs = []
@@ -172,11 +162,9 @@ if not qa:
     st.stop()
 
 
-# ------------------ LAYOUT ------------------
 left, right = st.columns([1,2])
 
 
-# -------- DOCUMENT VIEW --------
 with left:
     st.subheader("📄 Documents")
 
@@ -194,8 +182,6 @@ with left:
             unsafe_allow_html=True
         )
 
-
-# -------- CHAT --------
 with right:
     st.subheader("🤖 Chat")
 
@@ -240,8 +226,6 @@ with right:
         st.session_state.query_count[question] = st.session_state.query_count.get(question, 0) + 1
         st.session_state.response_times.append(round(time.time() - start, 2))
 
-
-# ------------------ ANALYTICS ------------------
 st.subheader("📊 Analytics")
 
 if st.session_state.query_count:
